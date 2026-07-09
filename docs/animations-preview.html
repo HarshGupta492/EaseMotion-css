@@ -31,8 +31,17 @@
     <link rel="stylesheet" href="docs.css" />
     <script>
       (function () {
-        var t = localStorage.getItem("em-theme") || "dark";
-        document.documentElement.setAttribute("data-theme", t);
+        var savedTheme = localStorage.getItem("em-theme");
+
+        if (savedTheme) {
+          document.documentElement.setAttribute("data-theme", savedTheme);
+        } else {
+          var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.setAttribute(
+            "data-theme",
+            prefersDark ? "dark" : "light"
+          );
+        }
       })();
     </script>
     <link rel="stylesheet" href="animations-preview.css?v=2" />
